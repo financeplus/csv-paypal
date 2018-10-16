@@ -75,7 +75,17 @@ export class CsvPayPal {
         }
       }
       const typeAdjustedTransaction: any = decodedTransaction;
+
+      // adjust numberFormat
+      const anf = (numberString: string): number => {
+        return parseFloat(numberString.replace(/\,/g,'.'))
+      }
+
+      // adjusting types
       typeAdjustedTransaction.Datum = new Date(typeAdjustedTransaction.Datum);
+      typeAdjustedTransaction.Brutto = anf(typeAdjustedTransaction.Brutto);
+
+      // pushing the ready transaction
       finalParsedArray.push(typeAdjustedTransaction);
     }
     this.transactions = finalParsedArray;
