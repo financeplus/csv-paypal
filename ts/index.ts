@@ -81,7 +81,7 @@ export class CsvPayPal {
 
     // adjust numberFormat
     const anf = (numberString: string): number => {
-      return parseFloat(numberString.replace(/\,/g,'.'))
+      return parseFloat(numberString.replace(/\,/g, '.'));
     };
 
     const finalTypeAdjustedArray = finalParsedArray.map(transaction => {
@@ -99,38 +99,41 @@ export class CsvPayPal {
       return transaction;
     });
     const foreignTransactions: IPayPalTransaction[] = [];
-    const eurTransactions: IPayPalTransaction[] = finalTypeAdjustedArray.filter((transaction: IPayPalTransaction) => {
-      const isEur = (transaction.Währung === 'EUR');
-      if (isEur) {
-        return true;
-      } else {
-        foreignTransactions.push(transaction);
-        return false;
+    const eurTransactions: IPayPalTransaction[] = finalTypeAdjustedArray.filter(
+      (transaction: IPayPalTransaction) => {
+        const isEur = transaction.Währung === 'EUR';
+        if (isEur) {
+          return true;
+        } else {
+          foreignTransactions.push(transaction);
+          return false;
+        }
       }
-    });
+    );
     const adjustedTransactions = eurTransactions.map(transaction => {
       if (transaction.Brutto > 0) {
         return transaction; // lets don't bother with payments from the bank
       }
       const eurTime = transaction.Datum.getTime();
-      const foreignCandidates: IPayPalTransaction[] = []
-      for(const foreignTransaction of foreignTransactions) {
+      const foreignCandidates: IPayPalTransaction[] = [];
+      for (const foreignTransaction of foreignTransactions) {
         const foreignTime = foreignTransaction.Datum.getTime();
         if (eurTime === foreignTime) {
           foreignCandidates.push(foreignTransaction);
         }
       }
 
-      if(foreignCandidates.length !== 2 && foreignCandidates.length !== 0) {
-        console.log('error!')
+      if (foreignCandidates.length !== 2 && foreignCandidates.length !== 0) {
+        console.log('error!');
       }
 
-      if(foreignCandidates.length === 2) {
+      if (foreignCandidates.length === 2) {
         const wantedForeignTransaction = foreignCandidates.find(transaction => {
           return transaction.Brutto < 0;
-        })
+        });
         transaction.Beschreibung = wantedForeignTransaction.Beschreibung;
-        transaction['Absender E-Mail-Adresse'] = wantedForeignTransaction['Absender E-Mail-Adresse'];
+        transaction['Absender E-Mail-Adresse'] =
+          wantedForeignTransaction['Absender E-Mail-Adresse'];
       }
 
       return transaction;

@@ -1,9 +1,7 @@
 // native
 import * as path from 'path';
 
-export {
-  path
-};
+export { path };
 
 // @pushrocks scope
 import * as smartcsv from '@pushrocks/smartcsv';
