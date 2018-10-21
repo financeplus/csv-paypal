@@ -42,7 +42,7 @@ export class CsvPayPal {
       csvPayPalArray.push(csvPayPalInstance);
     }
     let finalCsvPayPalInstance = new CsvPayPal('');
-    for (let csvPayPalInstance of csvPayPalArray) {
+    for (const csvPayPalInstance of csvPayPalArray) {
       finalCsvPayPalInstance = await finalCsvPayPalInstance.concat(csvPayPalInstance);
     }
 
@@ -62,7 +62,8 @@ export class CsvPayPal {
       headers: true
     });
     const parsedArrayObject = await smartCsvInstance.exportAsObject();
-    const finalParsedArray: any = [];
+    const finalParsedArray: any[] = [];
+
     for (const transaction of parsedArrayObject) {
       const decodedTransaction: any = {};
       for (const key in transaction) {
@@ -74,20 +75,41 @@ export class CsvPayPal {
           decodedTransaction[finalKey] = finalValue;
         }
       }
-      const typeAdjustedTransaction: any = decodedTransaction;
-
-      // adjust numberFormat
-      const anf = (numberString: string): number => {
-        return parseFloat(numberString.replace(/\,/g,'.'))
-      }
-
-      // adjusting types
-      typeAdjustedTransaction.Datum = new Date(typeAdjustedTransaction.Datum);
-      typeAdjustedTransaction.Brutto = anf(typeAdjustedTransaction.Brutto);
-
       // pushing the ready transaction
-      finalParsedArray.push(typeAdjustedTransaction);
+      finalParsedArray.push(decodedTransaction);
     }
+
+    // adjust numberFormat
+    const anf = (numberString: string): number => {
+      return parseFloat(numberString.replace(/\,/g,'.'))
+    };
+
+    const finalTypeAdjustedArray = finalParsedArray.map(transaction => {
+      // adjusting types
+      transaction.Datum = plugins.smarttime.ExtendedDate.fromEuropeanDate(
+        transaction.Datum
+      );
+      transaction.Brutto = anf(transaction.Brutto);
+      // tslint:disable-next-line:no-string-literal
+      transaction.Gebühr = anf(transaction.Gebühr);
+      transaction.Netto = anf(transaction.Netto);
+      transaction.Guthaben = anf(transaction.Guthaben);
+      return transaction;
+    });
+    const foreignTransactions: IPayPalTransaction[] = [];
+    const eurTransactions: IPayPalTransaction[] = finalTypeAdjustedArray.map((transaction: IPayPalTransaction) => {
+      const isEur = (transaction.Währung);
+      if(isEur) {
+        return transaction;
+      } else {
+        foreignTransactions.push(transaction);
+      }
+    });
+
+    const adjustedTransactions = eurTransactions.map(transaction => {
+      transaction.Datum.getTime
+    });
+
     this.transactions = finalParsedArray;
   }
 
