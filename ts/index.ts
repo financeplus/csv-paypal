@@ -49,13 +49,13 @@ export class CsvPayPal {
     return finalCsvPayPalInstance;
   }
 
-  public transactions = [];
+  public transactions : IPayPalTransaction[] = [];
 
   constructor(private csvString: string) {}
 
   public async parse() {
     let stringToParse = this.csvString;
-    stringToParse = stringToParse.replace(/"(.*?)"/gi, (match, p1, offset, string) => {
+    stringToParse = stringToParse.replace(/"(.*?)"/gi, (match, p1, offset, originalString) => {
       return plugins.smartstring.base64.encodeUri(match);
     });
     const smartCsvInstance = new plugins.smartcsv.Csv(stringToParse, {
@@ -124,12 +124,13 @@ export class CsvPayPal {
       }
 
       if (foreignCandidates.length !== 2 && foreignCandidates.length !== 0) {
+        // tslint:disable-next-line:no-console
         console.log('error!');
       }
 
       if (foreignCandidates.length === 2) {
-        const wantedForeignTransaction = foreignCandidates.find(transaction => {
-          return transaction.Brutto < 0;
+        const wantedForeignTransaction = foreignCandidates.find(foreignTransaction => {
+          return foreignTransaction.Brutto < 0;
         });
         transaction.Beschreibung = wantedForeignTransaction.Beschreibung;
         transaction['Absender E-Mail-Adresse'] =
