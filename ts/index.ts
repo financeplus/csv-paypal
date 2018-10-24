@@ -49,7 +49,7 @@ export class CsvPayPal {
     return finalCsvPayPalInstance;
   }
 
-  public transactions : IPayPalTransaction[] = [];
+  public transactions: IPayPalTransaction[] = [];
 
   constructor(private csvString: string) {}
 
@@ -96,6 +96,10 @@ export class CsvPayPal {
       transaction.Gebühr = anf(transaction.Gebühr);
       transaction.Netto = anf(transaction.Netto);
       transaction.Guthaben = anf(transaction.Guthaben);
+      transaction['Versand- und Bearbeitungsgebühr'] = anf(
+        transaction['Versand- und Bearbeitungsgebühr']
+      );
+      transaction.Umsatzsteuer = anf(transaction.Umsatzsteuer);
       return transaction;
     });
     const foreignTransactions: IPayPalTransaction[] = [];
@@ -135,6 +139,7 @@ export class CsvPayPal {
         transaction.Beschreibung = wantedForeignTransaction.Beschreibung;
         transaction['Absender E-Mail-Adresse'] =
           wantedForeignTransaction['Absender E-Mail-Adresse'];
+        transaction.Name = wantedForeignTransaction.Name;
       }
 
       return transaction;
