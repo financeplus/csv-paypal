@@ -13,17 +13,17 @@
     "format": "(gitzone format)"
   },
   "devDependencies": {
-    "@gitzone/tsbuild": "^2.0.22",
-    "@gitzone/tstest": "^1.0.15",
-    "@pushrocks/tapbundle": "^3.0.7",
-    "@types/node": "^10.12.0",
-    "tslint": "^5.11.0",
-    "tslint-config-prettier": "^1.15.0"
+    "@gitzone/tsbuild": "^2.1.8",
+    "@gitzone/tstest": "^1.0.20",
+    "@pushrocks/tapbundle": "^3.0.9",
+    "@types/node": "^11.13.4",
+    "tslint": "^5.15.0",
+    "tslint-config-prettier": "^1.18.0"
   },
   "dependencies": {
     "@pushrocks/smartcsv": "^1.0.15",
-    "@pushrocks/smartfile": "^6.0.8",
-    "@pushrocks/smartstring": "^3.0.4",
-    "@pushrocks/smarttime": "^3.0.2"
+    "@pushrocks/smartfile": "^7.0.2",
+    "@pushrocks/smartstring": "^3.0.8",
+    "@pushrocks/smarttime": "^3.0.7"
   }
 }

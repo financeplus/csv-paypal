@@ -1,6 +1,17 @@
 {
   "npmci": {
     "npmGlobalTools": [],
-    "npmAccessLevel": "public"
+    "npmAccessLevel": "public",
+    "npmRegistryUrl": "registry.npmjs.org"
+  },
+  "gitzone": {
+    "module": {
+      "githost": "gitlab.com",
+      "gitscope": "financeplus",
+      "gitrepo": "csv-paypal",
+      "shortDescription": "parses paypal csv files",
+      "npmPackagename": "@financeplus/csv-paypal",
+      "license": "MIT"
+    }
   }
 }
