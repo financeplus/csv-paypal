@@ -34,7 +34,7 @@ export class CsvPayPal {
   }
 
   public static async fromDirectory(dirPathArg: string) {
-    const smartfileArray = await plugins.smartfile.fs.fileTreeToObject(dirPathArg, '**/*.CSV');
+    const smartfileArray = await plugins.smartfile.fs.fileTreeToObject(dirPathArg, '**/*.csv');
     const csvPayPalArray: CsvPayPal[] = [];
     for (const smartfile of smartfileArray) {
       const csvPayPalInstance = await CsvPayPal.fromString(smartfile.contentBuffer.toString());
