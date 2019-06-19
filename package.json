@@ -1,6 +1,6 @@
 {
   "name": "@financeplus/csv-paypal",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "private": false,
   "description": "parses paypal csv files",
   "main": "dist/index.js",
