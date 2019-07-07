@@ -148,6 +148,13 @@ export class CsvPayPal {
   }
 
   /**
+   * gets transactions
+   */
+  public async getTransactions () {
+    return this.transactionArray;
+  }
+
+  /**
    * concatenates multiple PayPalCsvInstances
    * @param args
    */
