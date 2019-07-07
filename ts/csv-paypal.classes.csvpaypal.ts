@@ -121,7 +121,11 @@ export class CsvPayPal {
     return csvPayPalInstance;
   }
 
-  public static async fromDirectory(dirPathArg: string) {
+  /**
+   * parses a directory
+   * @param dirPathArg
+   */
+  public static async fromDir(dirPathArg: string) {
     const smartfileArray = await plugins.smartfile.fs.fileTreeToObject(dirPathArg, '**/MSR*.CSV');
     const csvPayPalArray: CsvPayPal[] = [];
     for (const smartfile of smartfileArray) {
