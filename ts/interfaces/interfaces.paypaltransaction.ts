@@ -1,3 +1,5 @@
+import * as plugins from '../csv-paypal.plugins';
+
 export interface IPayPalCsvOriginalTransaction {
   Datum: string;
   Uhrzeit: string;
@@ -21,6 +23,7 @@ export interface IPayPalCsvOriginalTransaction {
 
 export interface IPayPalTransaction {
   // standardised
+  simpleTransaction: plugins.tsclass.ITransaction;
   originalTransaction;
   transactionHash: string;
 

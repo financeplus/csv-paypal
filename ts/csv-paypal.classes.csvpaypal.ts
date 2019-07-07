@@ -40,7 +40,8 @@ export class CsvPayPal {
       const paypalTransaction: interfaces.IPayPalTransaction = {
         // assigned later
         transactionHash: null,
-        
+        simpleTransaction: null,
+
         // assigned now
         originalTransaction,
         transactionDate: plugins.smarttime.ExtendedDate.fromEuropeanDateAndTime(
@@ -82,7 +83,7 @@ export class CsvPayPal {
         }
       }
     );
-    const foreignAdjustedPayPalTransactions = eurTransactions.map(transaction => {
+    let finalReturnTransactions = eurTransactions.map(transaction => {
       if (transaction.brutto > 0) {
         return transaction; // lets don't bother with payments from the bank
       }
@@ -111,7 +112,19 @@ export class CsvPayPal {
       return transaction;
     });
 
-    const csvPayPalInstance = new CsvPayPal(foreignAdjustedPayPalTransactions);
+    // lets assign simple transactions at last
+    finalReturnTransactions = finalReturnTransactions.map(transaction => {
+      transaction.simpleTransaction = {
+        accountId: null,
+        id: transaction.transactionCode,
+        amount: transaction.brutto,
+        date: transaction.transactionDate,
+        description: transaction.description
+      };
+      return transaction;
+    });
+
+    const csvPayPalInstance = new CsvPayPal(finalReturnTransactions);
     return csvPayPalInstance;
   }
 

@@ -11,3 +11,10 @@ import * as smartstring from '@pushrocks/smartstring';
 import * as smarttime from '@pushrocks/smarttime';
 
 export { smartcsv, smartfile, smarthash, smartstring, smarttime };
+
+// tsclass scope
+import * as tsclass from '@tsclass/tsclass';
+
+export {
+  tsclass
+};
