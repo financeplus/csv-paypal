@@ -154,6 +154,7 @@ export class CsvPayPal extends plugins.finplusInterfaces.AcCsvParser<interfaces.
   }
 
   // INSTANCE
+  public paymentProviderName = 'PayPal';
   public transactionArray: interfaces.IPayPalTransaction[] = [];
 
   constructor(transactionsArrayArg: interfaces.IPayPalTransaction[]) {
