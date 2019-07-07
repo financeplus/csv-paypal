@@ -21,6 +21,7 @@
     "tslint-config-prettier": "^1.18.0"
   },
   "dependencies": {
+    "@financeplus/finplus-interfaces": "^1.0.10",
     "@pushrocks/smartcsv": "^1.0.16",
     "@pushrocks/smartfile": "^7.0.4",
     "@pushrocks/smarthash": "^2.0.6",

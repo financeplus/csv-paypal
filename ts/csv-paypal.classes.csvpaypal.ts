@@ -2,7 +2,7 @@ import * as plugins from './csv-paypal.plugins';
 
 import * as interfaces from './interfaces';
 
-export class CsvPayPal {
+export class CsvPayPal extends plugins.finplusInterfaces.AcCsvParser<interfaces.IPayPalTransaction> {
   // STATIC
   public static async fromString(csvStringArg: string) {
     let stringToParse = csvStringArg;
@@ -157,6 +157,7 @@ export class CsvPayPal {
   public transactionArray: interfaces.IPayPalTransaction[] = [];
 
   constructor(transactionsArrayArg: interfaces.IPayPalTransaction[]) {
+    super();
     this.transactionArray = transactionsArrayArg;
   }
 
