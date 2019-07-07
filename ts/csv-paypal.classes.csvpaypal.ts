@@ -44,27 +44,26 @@ export class CsvPayPal {
           'Europe/Berlin'
         ),
         transactionCode: originalTransaction.Transaktionscode,
-        linkedTransactionCode: originalTransaction["Zugehöriger Transaktionscode"],
+        linkedTransactionCode: originalTransaction['Zugehöriger Transaktionscode'],
         timezone: originalTransaction.Zeitzone,
         bankAccount: originalTransaction.Bankkonto,
-        bankName: originalTransaction["Name der Bank"],
+        bankName: originalTransaction['Name der Bank'],
         brutto: anf(originalTransaction.Brutto),
         netto: anf(originalTransaction.Netto),
         credit: anf(originalTransaction.Guthaben),
         fee: anf(originalTransaction.Gebühr),
-        processingAndShippingFee: anf(originalTransaction["Versand- und Bearbeitungsgebühr"]),
+        processingAndShippingFee: anf(originalTransaction['Versand- und Bearbeitungsgebühr']),
         currency: originalTransaction.Währung,
         description: originalTransaction.Beschreibung,
         invoiceNumber: originalTransaction.Rechnungsnummer,
         name: originalTransaction.Name,
-        payeeEmail: originalTransaction["Absender E-Mail-Adresse"],
+        payeeEmail: originalTransaction['Absender E-Mail-Adresse'],
         transactionTime: originalTransaction.Uhrzeit,
         vatAmount: anf(originalTransaction.Umsatzsteuer)
       };
-    
+
       paypalTransactions.push(paypalTransaction);
     }
-
 
     const foreignTransactions: interfaces.IPayPalTransaction[] = [];
     const eurTransactions: interfaces.IPayPalTransaction[] = paypalTransactions.filter(
@@ -100,8 +99,7 @@ export class CsvPayPal {
           return foreignTransaction.brutto < 0;
         });
         transaction.description = wantedForeignTransaction.description;
-        transaction.payeeEmail =
-          wantedForeignTransaction.payeeEmail;
+        transaction.payeeEmail = wantedForeignTransaction.payeeEmail;
         transaction.name = wantedForeignTransaction.name;
       }
 

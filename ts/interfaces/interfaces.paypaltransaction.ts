@@ -21,9 +21,9 @@ export interface IPayPalCsvOriginalTransaction {
 
 export interface IPayPalTransaction {
   // standardised
-  originalTransaction
+  originalTransaction;
   transactionHash: string;
-  
+
   // specific
   transactionCode: string;
   transactionDate: Date;
