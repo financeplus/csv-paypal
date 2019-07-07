@@ -38,6 +38,11 @@ export class CsvPayPal {
     const paypalTransactions: interfaces.IPayPalTransaction[] = [];
     for (const originalTransaction of originalTransactionArray) {
       const paypalTransaction: interfaces.IPayPalTransaction = {
+        // assigned later
+        transactionHash: null,
+        
+        // assigned now
+        originalTransaction,
         transactionDate: plugins.smarttime.ExtendedDate.fromEuropeanDateAndTime(
           originalTransaction.Datum,
           originalTransaction.Uhrzeit,
