@@ -27,7 +27,7 @@
     "@pushrocks/smarthash": "^2.0.6",
     "@pushrocks/smartstring": "^3.0.10",
     "@pushrocks/smarttime": "^3.0.12",
-    "@tsclass/tsclass": "^2.0.0"
+    "@tsclass/tsclass": "^2.0.1"
   },
   "files": [
     "ts/*",

@@ -119,7 +119,8 @@ export class CsvPayPal extends plugins.finplusInterfaces.AcCsvParser<interfaces.
         id: transaction.transactionCode,
         amount: transaction.brutto,
         date: transaction.transactionDate,
-        description: transaction.description
+        description: transaction.description,
+        name: transaction.name
       };
       return transaction;
     });
