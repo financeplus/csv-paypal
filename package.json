@@ -13,21 +13,21 @@
     "format": "(gitzone format)"
   },
   "devDependencies": {
-    "@gitzone/tsbuild": "^2.1.11",
-    "@gitzone/tstest": "^1.0.24",
+    "@gitzone/tsbuild": "^2.1.17",
+    "@gitzone/tstest": "^1.0.28",
     "@pushrocks/tapbundle": "^3.0.13",
-    "@types/node": "^12.0.12",
-    "tslint": "^5.18.0",
+    "@types/node": "^12.7.12",
+    "tslint": "^5.20.0",
     "tslint-config-prettier": "^1.18.0"
   },
   "dependencies": {
     "@financeplus/finplus-interfaces": "^1.0.11",
-    "@pushrocks/smartcsv": "^1.0.16",
-    "@pushrocks/smartfile": "^7.0.4",
+    "@pushrocks/smartcsv": "^1.0.19",
+    "@pushrocks/smartfile": "^7.0.6",
     "@pushrocks/smarthash": "^2.0.6",
-    "@pushrocks/smartstring": "^3.0.10",
+    "@pushrocks/smartstring": "^3.0.14",
     "@pushrocks/smarttime": "^3.0.12",
-    "@tsclass/tsclass": "^2.0.1"
+    "@tsclass/tsclass": "^2.0.11"
   },
   "files": [
     "ts/*",

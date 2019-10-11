@@ -5,30 +5,11 @@ import * as interfaces from './interfaces';
 export class CsvPayPal extends plugins.finplusInterfaces.AcCsvParser<interfaces.IPayPalTransaction> {
   // STATIC
   public static async fromString(csvStringArg: string) {
-    let stringToParse = csvStringArg;
-    stringToParse = stringToParse.replace(/"(.*?)"/gi, (match, p1, offset, originalString) => {
-      return plugins.smartstring.base64.encodeUri(match);
+    const smartCsvInstance = new plugins.smartcsv.Csv(csvStringArg, {
+      headers: true,
+      unquote: true
     });
-    const smartCsvInstance = new plugins.smartcsv.Csv(stringToParse, {
-      headers: true
-    });
-    const originalTransactionArray: interfaces.IPayPalCsvOriginalTransaction[] = (await smartCsvInstance.exportAsObject()).map(
-      originalTransaction => {
-        // tslint:disable-next-line: no-object-literal-type-assertion
-        const decodedTransaction = {} as interfaces.IPayPalCsvOriginalTransaction;
-        for (const key in originalTransaction) {
-          if (originalTransaction[key]) {
-            let finalKey = plugins.smartstring.base64.decode(key);
-            finalKey = finalKey.replace(/['"]+/g, '');
-            let finalValue = plugins.smartstring.base64.decode(originalTransaction[key]);
-            finalValue = finalValue.replace(/['"]+/g, '');
-            decodedTransaction[finalKey] = finalValue;
-          }
-        }
-        // pushing the ready transaction
-        return decodedTransaction;
-      }
-    );
+    const originalTransactionArray: interfaces.IPayPalCsvOriginalTransaction[] = await smartCsvInstance.exportAsObject();
 
     // adjust numberFormat
     const anf = (numberString: string): number => {
